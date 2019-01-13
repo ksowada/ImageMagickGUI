@@ -99,9 +99,23 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
  
         return menuBar;
     }
-    
-	public void actionPerformed(ActionEvent e) {
 
+	public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == menuItemFileOpen) {
+            int returnVal = fc.showOpenDialog(FileUploaderPanel.this); //fileUploader.g());//.getComponent(0));//contentPane); //frame.getComponent(0));//.getContentPane());
+            
+//            if (returnVal == JFileChooser.APPROVE_OPTION) {
+//                File file = fc.getSelectedFile();
+//                //This is where a real application would open the file.
+//                log.append("Opening: " + file.getName() + "." + newline);
+//            } else {
+//                log.append("Open command cancelled by user." + newline);
+//            }
+//            log.setCaretPosition(log.getDocument().getLength());
+
+            System.out.println("something clicked in menuItemFileOpen");
+        } 
+        
 //Handle open button action.
 		if (e.getSource() == openButton) {
 			int returnVal = fc.showOpenDialog(FileUploaderPanel.this);
