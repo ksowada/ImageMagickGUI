@@ -40,9 +40,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.ButtonGroup;
 import javax.swing.JMenuBar;
 import javax.swing.KeyStroke;
 import javax.swing.ImageIcon;
@@ -59,95 +56,45 @@ import javax.swing.JFrame;
  * This class exists solely to show you what menus look like.
  * It has no menu-related event handling.
  */
-public class FileUploader {
-    JTextArea output;
+public class FileUploader extends JPanel implements ActionListener {
+
+	private static final long serialVersionUID = 1L;
+	JTextArea output;
     JScrollPane scrollPane;
     JFileChooser fileChooser;
+    JMenuBar menuBar;
+    JMenu menuFile;
+    JMenuItem menuItemFileOpen;
+    JPanel contentPane;
+//    static JFrame frame;
  
     public JMenuBar createMenuBar() {
-        JMenuBar menuBar;
-        JMenu menu, submenu;
-        JMenuItem menuItem;
-        JRadioButtonMenuItem rbMenuItem;
-        JCheckBoxMenuItem cbMenuItem;
  
         //Create the menu bar.
         menuBar = new JMenuBar();
  
         //Build the first menu.
-        menu = new JMenu("File");
-        menu.setMnemonic(KeyEvent.VK_F);
-        menu.getAccessibleContext().setAccessibleDescription(
+        menuFile = new JMenu("File");
+        menuFile.setMnemonic(KeyEvent.VK_F);
+        menuFile.getAccessibleContext().setAccessibleDescription(
                 "File Menu open and save static Files");
-        menuBar.add(menu);
+        menuBar.add(menuFile);
  
         //a group of JMenuItems
-        menuItem = new JMenuItem("open", KeyEvent.VK_O);
-        menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
-        menuItem.getAccessibleContext().setAccessibleDescription("Select Files");
-        menu.add(menuItem);
- /*
-        ImageIcon icon = createImageIcon("images/middle.gif");
-        menuItem = new JMenuItem("Both text and icon", icon);
-        menuItem.setMnemonic(KeyEvent.VK_B);
-        menu.add(menuItem);
- 
-        menuItem = new JMenuItem(icon);
-        menuItem.setMnemonic(KeyEvent.VK_D);
-        menu.add(menuItem);
- 
-        //a group of radio button menu items
-        menu.addSeparator();
-        ButtonGroup group = new ButtonGroup();
- 
-        rbMenuItem = new JRadioButtonMenuItem("A radio button menu item");
-        rbMenuItem.setSelected(true);
-        rbMenuItem.setMnemonic(KeyEvent.VK_R);
-        group.add(rbMenuItem);
-        menu.add(rbMenuItem);
- 
-        rbMenuItem = new JRadioButtonMenuItem("Another one");
-        rbMenuItem.setMnemonic(KeyEvent.VK_O);
-        group.add(rbMenuItem);
-        menu.add(rbMenuItem);
- 
-        //a group of check box menu items
-        menu.addSeparator();
-        cbMenuItem = new JCheckBoxMenuItem("A check box menu item");
-        cbMenuItem.setMnemonic(KeyEvent.VK_C);
-        menu.add(cbMenuItem);
- 
-        cbMenuItem = new JCheckBoxMenuItem("Another one");
-        cbMenuItem.setMnemonic(KeyEvent.VK_H);
-        menu.add(cbMenuItem);
- 
-        //a submenu
-        menu.addSeparator();
-        submenu = new JMenu("A submenu");
-        submenu.setMnemonic(KeyEvent.VK_S);
- 
-        menuItem = new JMenuItem("An item in the submenu");
-        menuItem.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_2, ActionEvent.ALT_MASK));
-        submenu.add(menuItem);
- 
-        menuItem = new JMenuItem("Another item");
-        submenu.add(menuItem);
-        menu.add(submenu);
- 
-        //Build second menu in the menu bar.
-        menu = new JMenu("Another Menu");
-        menu.setMnemonic(KeyEvent.VK_N);
-        menu.getAccessibleContext().setAccessibleDescription(
-                "This menu does nothing");*/
-        menuBar.add(menu);
+        menuItemFileOpen = new JMenuItem("open", KeyEvent.VK_O);
+        menuItemFileOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
+        menuItemFileOpen.getAccessibleContext().setAccessibleDescription("Select Files");
+        menuItemFileOpen.addActionListener(this);
+        menuFile.add(menuItemFileOpen);
+        
+        menuBar.add(menuFile);
  
         return menuBar;
     }
  
     public Container createContentPane() {
         //Create the content-pane-to-be.
-        JPanel contentPane = new JPanel(new BorderLayout());
+        contentPane = new JPanel(new BorderLayout());
         contentPane.setOpaque(true);
  
         //Create a scrolled text area.
@@ -161,17 +108,6 @@ public class FileUploader {
         return contentPane;
     }
  
-    /** Returns an ImageIcon, or null if the path was invalid. */
-    protected static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = FileUploader.class.getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
-        } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
-        }
-    }
- 
     /**
      * Create the GUI and show it.  For thread safety,
      * this method should be invoked from the
@@ -179,33 +115,45 @@ public class FileUploader {
      */
     private static void createAndShowGUI() {
         //Create and set up the window.
-        JFrame frame = new JFrame("FileUploader");
+    	JFrame frame = new JFrame("FileUploader");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  
         //Create and set up the content pane.
-        FileUploader demo = new FileUploader();
-        frame.setJMenuBar(demo.createMenuBar());
-        frame.setContentPane(demo.createContentPane());
+        FileUploader fileUploader = new FileUploader();
+        frame.setJMenuBar(fileUploader.createMenuBar());
+        frame.setContentPane(fileUploader.createContentPane());
  
         //Display the window.
+//              frame.pack();
         frame.setSize(450, 260);
         frame.setVisible(true);
+        
+//                //Create and set up the window.
+//                JFrame frame = new JFrame("FileChooserDemo");
+//                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//         
+//                //Add content to the window.
+//                frame.add(new FileChooserDemo());
+//         
+//                //Display the window.
+//                frame.pack();
+//                frame.setVisible(true);
     }
      public void actionPerformed(ActionEvent e) {
  
         //Handle open button action.
-/*        if (e.getSource() == openButton) {
-            int returnVal = fc.showOpenDialog(FileChooserDemo.this);
+        if (e.getSource() == menuItemFileOpen) {
+//            int returnVal = fileChooser.showOpenDialog(frame.getComponent(0));//.getContentPane());
  
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = fc.getSelectedFile();
-                //This is where a real application would open the file.
-                log.append("Opening: " + file.getName() + "." + newline);
-            } else {
-                log.append("Open command cancelled by user." + newline);
-            }
-            log.setCaretPosition(log.getDocument().getLength());
-        } */
+//            if (returnVal == JFileChooser.APPROVE_OPTION) {
+//                File file = fc.getSelectedFile();
+//                //This is where a real application would open the file.
+//                log.append("Opening: " + file.getName() + "." + newline);
+//            } else {
+//                log.append("Open command cancelled by user." + newline);
+//            }
+//            log.setCaretPosition(log.getDocument().getLength());
+        } 
         System.out.println("something clicked in menu");
     }
      
