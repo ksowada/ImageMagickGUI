@@ -46,6 +46,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JMenuBar;
 import javax.swing.KeyStroke;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
  
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -61,6 +62,7 @@ import javax.swing.JFrame;
 public class FileUploader {
     JTextArea output;
     JScrollPane scrollPane;
+    JFileChooser fileChooser;
  
     public JMenuBar createMenuBar() {
         JMenuBar menuBar;
@@ -73,22 +75,18 @@ public class FileUploader {
         menuBar = new JMenuBar();
  
         //Build the first menu.
-        menu = new JMenu("A Menu");
-        menu.setMnemonic(KeyEvent.VK_A);
+        menu = new JMenu("File");
+        menu.setMnemonic(KeyEvent.VK_F);
         menu.getAccessibleContext().setAccessibleDescription(
-                "The only menu in this program that has menu items");
+                "File Menu open and save static Files");
         menuBar.add(menu);
  
         //a group of JMenuItems
-        menuItem = new JMenuItem("A text-only menu item",
-                                 KeyEvent.VK_T);
-        //menuItem.setMnemonic(KeyEvent.VK_T); //used constructor instead
-        menuItem.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_1, ActionEvent.ALT_MASK));
-        menuItem.getAccessibleContext().setAccessibleDescription(
-                "This doesn't really do anything");
+        menuItem = new JMenuItem("open", KeyEvent.VK_O);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
+        menuItem.getAccessibleContext().setAccessibleDescription("Select Files");
         menu.add(menuItem);
- 
+ /*
         ImageIcon icon = createImageIcon("images/middle.gif");
         menuItem = new JMenuItem("Both text and icon", icon);
         menuItem.setMnemonic(KeyEvent.VK_B);
@@ -141,7 +139,7 @@ public class FileUploader {
         menu = new JMenu("Another Menu");
         menu.setMnemonic(KeyEvent.VK_N);
         menu.getAccessibleContext().setAccessibleDescription(
-                "This menu does nothing");
+                "This menu does nothing");*/
         menuBar.add(menu);
  
         return menuBar;
@@ -193,7 +191,24 @@ public class FileUploader {
         frame.setSize(450, 260);
         frame.setVisible(true);
     }
+     public void actionPerformed(ActionEvent e) {
  
+        //Handle open button action.
+/*        if (e.getSource() == openButton) {
+            int returnVal = fc.showOpenDialog(FileChooserDemo.this);
+ 
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                //This is where a real application would open the file.
+                log.append("Opening: " + file.getName() + "." + newline);
+            } else {
+                log.append("Open command cancelled by user." + newline);
+            }
+            log.setCaretPosition(log.getDocument().getLength());
+        } */
+        System.out.println("something clicked in menu");
+    }
+     
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
