@@ -54,6 +54,7 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
     ScriptList scriptList;
     File[] files;
 	private ArrayList<Script> scripts;
+	private JMenuItem menuItemFileExit;
 
 	public FileUploaderPanel() {
 		super(new BorderLayout());
@@ -111,11 +112,18 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
         menuFile.getAccessibleContext().setAccessibleDescription("File Menu open and save static Files");
 //        menuBar.add(menuFile);
  
-        menuItemFileOpen = new JMenuItem("open", KeyEvent.VK_O);
+        menuItemFileOpen = new JMenuItem("Open...", KeyEvent.VK_O);
         menuItemFileOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         menuItemFileOpen.getAccessibleContext().setAccessibleDescription("Select Files");
         menuItemFileOpen.addActionListener(this);
         menuFile.add(menuItemFileOpen);
+        
+
+        menuItemFileExit = new JMenuItem("Exit", KeyEvent.VK_X);
+        menuItemFileExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
+        menuItemFileExit.getAccessibleContext().setAccessibleDescription("Exit App");
+        menuItemFileExit.addActionListener(this);
+        menuFile.add(menuItemFileExit);
         
         menuBar.add(menuFile);
         
@@ -124,7 +132,7 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
         menuProcess.getAccessibleContext().setAccessibleDescription("Process Menu open and save static Processs");
 //        menuBar.add(menuProcess);
  
-        menuItemProcessRun = new JMenuItem("run", KeyEvent.VK_R);
+        menuItemProcessRun = new JMenuItem("Run", KeyEvent.VK_R);
         menuItemProcessRun.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.CTRL_MASK));
         menuItemProcessRun.getAccessibleContext().setAccessibleDescription("Select Processs");
         menuItemProcessRun.addActionListener(this);
@@ -154,6 +162,9 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
             System.out.println("something clicked in menuItemFileOpen");
         } 
 
+        if (e.getSource() == menuItemFileExit) {
+            System.exit(ABORT);
+        } 
         if (e.getSource() == menuItemProcessRun) {
         	
         	// read selected ListItems
@@ -171,10 +182,9 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
 					}
             	}
             }
-        	
-            
             System.out.println("something clicked in menuItemProcessRun");
         } 
+        
 	}
 
 	/**
