@@ -1,20 +1,35 @@
 package eu.sowada.fileUploader;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ScriptExecution {
 
+	private File fileSrc;
+	private Script script;
+
+	public ScriptExecution(File fileSrc, Script script) {
+		this.fileSrc = fileSrc;
+		this.script = script;
+	}
 	
-	public void execute(Script script) throws Exception {
+	public int execute() throws Exception {
 		
-		ProcessBuilder builder = new ProcessBuilder(script.cmd, "arg1");
+		ProcessBuilder builder = null;
+		if (script.outFile.toLowerCase().equals("no")) {
+			builder = new ProcessBuilder(script.cmd, script.operator, fileSrc.toString());
+			System.out.println("execute("+script.cmd+" "+script.operator+" "+fileSrc.toString());
+		}
+		if (builder == null) return -1;
+		
 		builder.redirectErrorStream(true);
 		final Process process = builder.start();
 
 		// Watch the process
 		watch(process);
+		return 0;
 	}
 	
 	public static void main(String[] args) {

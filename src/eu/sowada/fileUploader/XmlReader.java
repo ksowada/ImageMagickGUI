@@ -102,6 +102,41 @@ public class XmlReader {
 	    }
         return subNodes;
 	}
+	/**
+	  * Return the text that a node contains. This routine:
+	  * <ul>
+	  * <li>Ignores comments and processing instructions.
+	  * <li>Concatenates TEXT nodes, CDATA nodes, and the results of
+	  *     recursively processing EntityRef nodes.
+	  * <li>Ignores any element nodes in the sublist.
+	  *     (Other possible options are to recurse into element 
+	  *      sublists or throw an exception.)
+	  * </ul>
+	  * @param    node  a  DOM node
+	  * @return   a String representing its contents
+	  */
+	public String getText(Node node) {
+	    StringBuffer result = new StringBuffer();
+	    if (! node.hasChildNodes()) return "";
+
+	    NodeList list = node.getChildNodes();
+	    for (int i=0; i < list.getLength(); i++) {
+	        Node subnode = list.item(i);
+	        if (subnode.getNodeType() == Node.TEXT_NODE) {
+	            result.append(subnode.getNodeValue());
+	        }
+	        else if (subnode.getNodeType() == Node.CDATA_SECTION_NODE) {
+	            result.append(subnode.getNodeValue());
+	        }
+	        else if (subnode.getNodeType() == Node.ENTITY_REFERENCE_NODE) {
+	            // Recurse into the subtree for text
+	            // (and ignore comments)
+	            result.append(getText(subnode));
+	        }
+	    }
+
+	    return result.toString();
+	}
 	/** test XmlReader */
 	public static void main(String[] args) {
 		XmlReader xmlReader = new XmlReader();

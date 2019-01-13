@@ -4,7 +4,8 @@
     <Date>13.01.2018</Date>
     <Script name="Resize">
     </Script>
-    <Script name="AutoLevel">
+    <Script name="Identify" outFile="no">
+    <cmd>magick</cmd><operator>identify</operator></Script><Script name="AutoLevel">
         <cmd>convert</cmd>
         <operator>-auto-level</operator>
     </Script>

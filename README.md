@@ -22,3 +22,7 @@ Choose one of the given sample Transformations.
 
 Otherwise you can edit the script/script.xml File manually. Don't change given Tags, but add additonal Tags with an unique name and reload the application.
 
+## Script-File Format
+
+refer to [script.xml.md](Script-File Format)
+

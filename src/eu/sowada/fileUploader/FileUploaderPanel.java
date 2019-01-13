@@ -52,6 +52,8 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
     JMenuItem menuItemProcessRun;
     
     ScriptList scriptList;
+    File[] files;
+	private ArrayList<Script> scripts;
 
 	public FileUploaderPanel() {
 		super(new BorderLayout());
@@ -80,12 +82,12 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
 		
 		// Create list
 		ArrayList<Node> scriptNodes = xmlReader.findSubNodes(NODE_NAME_SCRIPT);
-		ArrayList<Script> scripts = new ArrayList<Script>();
+		scripts = new ArrayList<Script>();
 		ArrayList<String> scriptsText = new ArrayList<String>();
 
 		// go through ScriptList
 		for (Node scriptNode : scriptNodes) {
-			Script script = new Script(scriptNode);
+			Script script = new Script(scriptNode, xmlReader);
 			scripts.add(script);
 			scriptsText.add(script.toText());
 			
@@ -138,7 +140,7 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
             int returnVal = fileChooser.showOpenDialog(FileUploaderPanel.this); //fileUploader.g());//.getComponent(0));//contentPane); //frame.getComponent(0));//.getContentPane());
             
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File[] files = fileChooser.getSelectedFiles();
+                files = fileChooser.getSelectedFiles();
 
                 for (File file : files) {
                 //This is where a real application would open the file.
@@ -153,6 +155,23 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
         } 
 
         if (e.getSource() == menuItemProcessRun) {
+        	
+        	// read selected ListItems
+        	int[] scriptSelectedIxs = scriptList.getSelectedIndices();
+        	
+        	// fetch through files and scriptSelected
+            for (File file : files) {
+            	for (int scriptIx : scriptSelectedIxs) {
+            		Script script = scripts.get(scriptIx);
+                	ScriptExecution scriptExecution = new ScriptExecution(file, script);
+                	try {
+						scriptExecution.execute();
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+            	}
+            }
+        	
             
             System.out.println("something clicked in menuItemProcessRun");
         } 
