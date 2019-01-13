@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -19,6 +20,9 @@ import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 public class FileUploaderPanel extends JPanel implements ActionListener {
 
@@ -46,6 +50,14 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
 		fileChooser.setMultiSelectionEnabled(true);
 
 		add(logScrollPane, BorderLayout.CENTER);
+		
+		// read given scripts
+		XmlReader xmlReader = new XmlReader();
+		try {
+			xmlReader.initFile(new File("script/script.xml"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
     public JMenuBar createMenuBar() {
