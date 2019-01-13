@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ImageMagickScript>
+    <Author>Karl Sowada</Author>
+    <Date>13.01.2018</Date>
+    <Script name="Resize">
+    </Script>
+    <Script name="AutoLevel">
+        <cmd>convert</cmd>
+        <operator>-auto-level</operator>
+    </Script>
+</ImageMagickScript>
