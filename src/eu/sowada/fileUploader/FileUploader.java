@@ -67,6 +67,8 @@ public class FileUploader extends JPanel implements ActionListener {
     JMenuItem menuItemFileOpen;
     JPanel contentPane;
 //    static JFrame frame;
+
+    static FileUploader fileUploader;// = new FileUploader();
  
     public JMenuBar createMenuBar() {
  
@@ -119,7 +121,8 @@ public class FileUploader extends JPanel implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  
         //Create and set up the content pane.
-        FileUploader fileUploader = new FileUploader();
+        fileUploader = new FileUploader();
+//        FileUploader fileUploader = new FileUploader();
         frame.setJMenuBar(fileUploader.createMenuBar());
         frame.setContentPane(fileUploader.createContentPane());
  
@@ -143,8 +146,8 @@ public class FileUploader extends JPanel implements ActionListener {
  
         //Handle open button action.
         if (e.getSource() == menuItemFileOpen) {
-//            int returnVal = fileChooser.showOpenDialog(frame.getComponent(0));//.getContentPane());
- 
+            int returnVal = fileChooser.showOpenDialog(contentPane); //fileUploader.g());//.getComponent(0));//contentPane); //frame.getComponent(0));//.getContentPane());
+            
 //            if (returnVal == JFileChooser.APPROVE_OPTION) {
 //                File file = fc.getSelectedFile();
 //                //This is where a real application would open the file.
