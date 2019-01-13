@@ -44,8 +44,12 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
 	JFileChooser fileChooser;
 	
     JMenuBar menuBar;
+    
     JMenu menuFile;
     JMenuItem menuItemFileOpen;
+
+    JMenu menuProcess;
+    JMenuItem menuItemProcessRun;
     
     ScriptList scriptList;
 
@@ -102,9 +106,8 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
 
         menuFile = new JMenu("File");
         menuFile.setMnemonic(KeyEvent.VK_F);
-        menuFile.getAccessibleContext().setAccessibleDescription(
-                "File Menu open and save static Files");
-        menuBar.add(menuFile);
+        menuFile.getAccessibleContext().setAccessibleDescription("File Menu open and save static Files");
+//        menuBar.add(menuFile);
  
         menuItemFileOpen = new JMenuItem("open", KeyEvent.VK_O);
         menuItemFileOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
@@ -113,6 +116,19 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
         menuFile.add(menuItemFileOpen);
         
         menuBar.add(menuFile);
+        
+        menuProcess = new JMenu("Process");
+        menuProcess.setMnemonic(KeyEvent.VK_P);
+        menuProcess.getAccessibleContext().setAccessibleDescription("Process Menu open and save static Processs");
+//        menuBar.add(menuProcess);
+ 
+        menuItemProcessRun = new JMenuItem("run", KeyEvent.VK_R);
+        menuItemProcessRun.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.CTRL_MASK));
+        menuItemProcessRun.getAccessibleContext().setAccessibleDescription("Select Processs");
+        menuItemProcessRun.addActionListener(this);
+        menuProcess.add(menuItemProcessRun);
+        
+        menuBar.add(menuProcess);
  
         return menuBar;
     }
@@ -134,6 +150,11 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
             log.setCaretPosition(log.getDocument().getLength());
 
             System.out.println("something clicked in menuItemFileOpen");
+        } 
+
+        if (e.getSource() == menuItemProcessRun) {
+            
+            System.out.println("something clicked in menuItemProcessRun");
         } 
 	}
 
