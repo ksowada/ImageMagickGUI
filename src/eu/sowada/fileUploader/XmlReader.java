@@ -5,12 +5,19 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.*;
 import java.io.*;
+import java.util.ArrayList;
 
-
+/**
+ * grant access to XML-File
+ * @author Karl Sowada
+ * @version 0.1
+ * @since 180113
+ */
 public class XmlReader {
 
 	/** access this variable to get the DOM of the given XML-File */
 	public Document document;
+	public Element root;
 
 	/** tell me the xmlFile and I build up the document Field */
 	public void initFile(File xmlFile) throws ParserConfigurationException, SAXException, IOException {
@@ -19,12 +26,82 @@ public class XmlReader {
 		
 		document = builder.parse(xmlFile);
 		
-		Element root = document.getDocumentElement();
+		root = document.getDocumentElement();
 		
 		System.out.println("runned. read "+root.getTagName());
 		
 	}
 	
+	/**
+	 * Find the named subnode in a node's sublist.
+	 * <ul>
+	 * <li>Ignores comments and processing instructions.
+	 * <li>Ignores TEXT nodes (likely to exist and contain
+	 *         ignorable whitespace, if not validating.
+	 * <li>Ignores CDATA nodes and EntityRef nodes.
+	 * <li>Examines element nodes to find one with
+	 *        the specified name.
+	 * </ul>
+	 * @param name  the tag name for the element to find
+	 * @param node  the element node to start searching from
+	 * @return the Node found
+	 */
+	public Node findSubNode(String name, Node node) {
+	    if (node.getNodeType() != Node.ELEMENT_NODE) {
+	        System.err.println("Error: Search node not of element type");
+	        System.exit(22);
+	    }
+
+	    if (! node.hasChildNodes()) return null;
+
+	    NodeList list = node.getChildNodes();
+	    for (int i=0; i < list.getLength(); i++) {
+	        Node subnode = list.item(i);
+	        if (subnode.getNodeType() == Node.ELEMENT_NODE) {
+	           if (subnode.getNodeName().equals(name)) 
+	               return subnode;
+	        }
+	    }
+	    return null;
+	}
+
+	/**
+	 * Find the named subnode in a node's sublist.
+	 * <ul>
+	 * <li>Ignores comments and processing instructions.
+	 * <li>Ignores TEXT nodes (likely to exist and contain
+	 *         ignorable whitespace, if not validating.
+	 * <li>Ignores CDATA nodes and EntityRef nodes.
+	 * <li>Examines element nodes to find one with
+	 *        the specified name.
+	 * </ul>
+	 * @param name  the tag name for the element to find
+	 * @param node  the element node to start searching from
+	 * @return the Node found
+	 */
+	public ArrayList<Node> findSubNodes(String name) {
+		return findSubNodes(name, root);
+	}
+	public ArrayList<Node> findSubNodes(String name, Node node) {
+		
+	    if (node.getNodeType() != Node.ELEMENT_NODE) {
+	        System.err.println("Error: Search node not of element type");
+	        System.exit(22);
+	    }
+
+	    if (! node.hasChildNodes()) return null;
+
+	    ArrayList<Node> subNodes = new ArrayList<Node>();
+	    NodeList list = node.getChildNodes();
+	    for (int i=0; i < list.getLength(); i++) {
+	        Node subnode = list.item(i);
+	        if (subnode.getNodeType() == Node.ELEMENT_NODE) {
+	           if (subnode.getNodeName().equals(name)) 
+	        	   subNodes.add(subnode);
+	        }
+	    }
+        return subNodes;
+	}
 	/** test XmlReader */
 	public static void main(String[] args) {
 		XmlReader xmlReader = new XmlReader();

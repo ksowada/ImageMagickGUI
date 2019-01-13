@@ -1,12 +1,14 @@
 package eu.sowada.fileUploader;
 
 import java.awt.BorderLayout;
+
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -22,18 +24,30 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
-
+/**
+ * App for batching multiple Picture through ImageMagics transformations
+ * use JFileChooser, XML-Script-File and ImageMagic by command-line
+ * @author Karl Sowada
+ * @version 0.1
+ * @since 180113
+ */
 public class FileUploaderPanel extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1042945819029455828L;
-	static private final String newline = "\n";
+	private static final String SCRIPT_FILE_PATH = "script/script.xml";
+	private static final String NODE_NAME_SCRIPT = "Script";
+	private static final String newline = "\n";
+	
 	JTextArea log;
 	JFileChooser fileChooser;
 	
     JMenuBar menuBar;
     JMenu menuFile;
     JMenuItem menuItemFileOpen;
+    
+    ScriptList scriptList;
 
 	public FileUploaderPanel() {
 		super(new BorderLayout());
@@ -51,28 +65,37 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
 
 		add(logScrollPane, BorderLayout.CENTER);
 		
+		
 		// read given scripts
 		XmlReader xmlReader = new XmlReader();
 		try {
-			xmlReader.initFile(new File("script/script.xml"));
+			xmlReader.initFile(new File(SCRIPT_FILE_PATH));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		// Create list
+		ArrayList<Node> scriptNodes = xmlReader.findSubNodes(NODE_NAME_SCRIPT);
+
+		String[] scripts = new String[ scriptNodes.size() ];
+		scriptNodes.toArray( scripts );
+		
+//		String numbers[] = {"one", "two"};
+		scriptList = new ScriptList(scripts);
+		add(scriptList, BorderLayout.SOUTH);
 	}
 
     public JMenuBar createMenuBar() {
     	 
         //Create the menu bar.
         menuBar = new JMenuBar();
- 
-        //Build the first menu.
+
         menuFile = new JMenu("File");
         menuFile.setMnemonic(KeyEvent.VK_F);
         menuFile.getAccessibleContext().setAccessibleDescription(
                 "File Menu open and save static Files");
         menuBar.add(menuFile);
  
-        //a group of JMenuItems
         menuItemFileOpen = new JMenuItem("open", KeyEvent.VK_O);
         menuItemFileOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         menuItemFileOpen.getAccessibleContext().setAccessibleDescription("Select Files");
@@ -102,17 +125,6 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
 
             System.out.println("something clicked in menuItemFileOpen");
         } 
-	}
-
-	/** Returns an ImageIcon, or null if the path was invalid. */
-	protected static ImageIcon createImageIcon(String path) {
-		java.net.URL imgURL = FileUploaderPanel.class.getResource(path);
-		if (imgURL != null) {
-			return new ImageIcon(imgURL);
-		} else {
-			System.err.println("Couldn't find file: " + path);
-			return null;
-		}
 	}
 
 	/**
