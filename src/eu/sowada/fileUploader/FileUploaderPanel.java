@@ -76,12 +76,22 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
 		
 		// Create list
 		ArrayList<Node> scriptNodes = xmlReader.findSubNodes(NODE_NAME_SCRIPT);
+		ArrayList<Script> scripts = new ArrayList<Script>();
+		ArrayList<String> scriptsText = new ArrayList<String>();
 
-		String[] scripts = new String[ scriptNodes.size() ];
-		scriptNodes.toArray( scripts );
+		// go through ScriptList
+		for (Node scriptNode : scriptNodes) {
+			Script script = new Script(scriptNode);
+			scripts.add(script);
+			scriptsText.add(script.toText());
+			
+		}
+
+		// build text for ScriptListItems
+		String[] scriptsString = new String[ scriptsText.size() ];
+		scriptsText.toArray( scriptsString );
 		
-//		String numbers[] = {"one", "two"};
-		scriptList = new ScriptList(scripts);
+		scriptList = new ScriptList(scriptsString);
 		add(scriptList, BorderLayout.SOUTH);
 	}
 

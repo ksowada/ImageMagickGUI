@@ -47,4 +47,8 @@ public class Script {
 			}
 	    }
 	}
+	
+	public String toText() {
+		return this.name;
+	}
 }
