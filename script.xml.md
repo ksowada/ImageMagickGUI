@@ -10,11 +10,19 @@ An easy handy name for the script
 
 type no, if no output is used
 
-## cmd
+## Command
 
 the command line executable
 
-## operator
+## Setting
 
-ImageMagick operator, like identify
+Image Setting, like identify
 
+## Operator
+
+Image Operator, like identify
+
+
+## ChannelOperator
+
+Image Channel Operator, like identify
