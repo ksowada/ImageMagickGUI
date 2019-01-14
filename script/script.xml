@@ -5,8 +5,11 @@
     <Script name="Resize">
     </Script>
     <Script name="Identify" outFile="no">
-    <cmd>magick</cmd><operator>identify</operator></Script><Script name="AutoLevel">
-        <cmd>convert</cmd>
-        <operator>-auto-level</operator>
+        <Command>magick</Command>
+        <Operator>identify</Operator>
+    </Script>
+    <Script name="AutoLevel">
+        <Command>convert</Command>
+        <Operator>-auto-level</Operator>
     </Script>
 </ImageMagickScript>
