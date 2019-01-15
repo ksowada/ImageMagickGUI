@@ -56,7 +56,7 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
 	private ArrayList<Script> scripts;
 	private JMenuItem menuItemFileExit;
 	private JMenu menuUpload;
-	private Object menuItemUploadDeviant;
+	private JMenuItem menuItemUploadDeviant;
 
 	public FileUploaderPanel() {
 		super(new BorderLayout());
