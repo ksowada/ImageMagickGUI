@@ -55,6 +55,8 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
     File[] files;
 	private ArrayList<Script> scripts;
 	private JMenuItem menuItemFileExit;
+	private JMenu menuUpload;
+	private Object menuItemUploadDeviant;
 
 	public FileUploaderPanel() {
 		super(new BorderLayout());
@@ -139,7 +141,21 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
         menuProcess.add(menuItemProcessRun);
         
         menuBar.add(menuProcess);
+
+        menuUpload = new JMenu("Upload");
+        menuUpload.setMnemonic(KeyEvent.VK_P);
+        menuUpload.getAccessibleContext().setAccessibleDescription("Upload Menu open and save static Uploads");
+//        menuBar.add(menuUpload);
  
+        menuItemUploadDeviant = new JMenuItem("Run", KeyEvent.VK_R);
+        menuItemUploadDeviant.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.CTRL_MASK));
+        menuItemUploadDeviant.getAccessibleContext().setAccessibleDescription("Select Uploads");
+        menuItemUploadDeviant.addActionListener(this);
+        menuUpload.add(menuItemUploadDeviant);
+        
+        menuBar.add(menuUpload);
+ 
+        
         return menuBar;
     }
 
@@ -183,6 +199,10 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
             	}
             }
             System.out.println("something clicked in menuItemProcessRun");
+
+        } 
+        if (e.getSource() == menuItemUploadDeviant) {
+        	
         } 
         
 	}
