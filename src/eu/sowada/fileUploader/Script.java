@@ -3,6 +3,8 @@
  */
 package eu.sowada.fileUploader;
 
+import java.util.TreeMap;
+
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -17,6 +19,7 @@ public class Script {
 
 	private static final String ATTR_NAME = "name";
 	private static final String ATTR_OUT_FILE = "outFile";
+	private static final String ELEM_EXAMPLE = "Example";
 	private static final String ELEM_COMMAND = "Command";
 	private static final String ELEM_OPERATOR = "Operator";
 	private static final String ELEM_SETTING = "Setting";
@@ -25,13 +28,14 @@ public class Script {
 	private static final String ELEM_GEOMETRY = "Geometry";
 	
 	public String name;
+	public String outFile;
+	public String example;
 	public String command;
 	public String operator;
-	public String outFile;
 	public String setting;
-	private String channelOperator;
-	private String sequenceOperator;
-	private String geometry;
+	public String channelOperator;
+	public String sequenceOperator;
+	public String geometry;
 	
 	public Script(Node node, XmlReader xmlReader) {
 		
@@ -49,6 +53,10 @@ public class Script {
 	        Node subNode = nodes.item(i);
 	        String nodeName = subNode.getNodeName();
 			switch (nodeName) {
+
+			case ELEM_EXAMPLE:
+				example = xmlReader.getText(subNode);
+				
 			case ELEM_COMMAND:
 				this.command = xmlReader.getText(subNode);//subNode.getTextContent();
 				break;
@@ -80,5 +88,21 @@ public class Script {
 	
 	public String toText() {
 		return this.name;
+	}
+	/** serialize Script to a TreeMap */
+	public TreeMap<String, String> toMap() {
+		TreeMap<String, String> map = new TreeMap<>();
+
+		map.put("name"             , name);
+		map.put("outFile"          , outFile);
+		map.put("example"          , example);
+		map.put("command"          , command);
+		map.put("operator"         , operator);
+		map.put("setting"          , setting);
+		map.put("channelOperator"  , channelOperator);
+		map.put("sequenceOperator" , sequenceOperator);
+		map.put("geometry"         , geometry);
+
+		return map;
 	}
 }

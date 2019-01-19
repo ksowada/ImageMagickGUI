@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -57,6 +58,7 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
 	private JMenuItem menuItemFileExit;
 	private JMenu menuUpload;
 	private JMenuItem menuItemUploadDeviant;
+	private ScriptTable scriptTable;
 
 	public FileUploaderPanel() {
 		super(new BorderLayout());
@@ -87,13 +89,14 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
 		ArrayList<Node> scriptNodes = xmlReader.findSubNodes(NODE_NAME_SCRIPT);
 		scripts = new ArrayList<Script>();
 		ArrayList<String> scriptsText = new ArrayList<String>();
+		ArrayList<TreeMap<String,String>> scriptsMap = new ArrayList<>();
 
 		// go through ScriptList
 		for (Node scriptNode : scriptNodes) {
 			Script script = new Script(scriptNode, xmlReader);
 			scripts.add(script);
 			scriptsText.add(script.toText());
-			
+			scriptsMap.add(script.toMap());
 		}
 
 		// build text for ScriptListItems
@@ -102,6 +105,10 @@ public class FileUploaderPanel extends JPanel implements ActionListener {
 		
 		scriptList = new ScriptList(scriptsString);
 		add(scriptList, BorderLayout.SOUTH);
+		
+		scriptTable = new ScriptTable(scriptsMap);
+		add(scriptTable, BorderLayout.EAST);
+		
 	}
 
     public JMenuBar createMenuBar() {
