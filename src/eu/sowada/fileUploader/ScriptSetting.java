@@ -18,7 +18,8 @@ public class ScriptSetting {
 	public String example;
 
 	public ScriptSetting(Node node, XmlReader xmlReader) {
-		parameterText = xmlReader.getText(subNode);
+		
+		parameterText = xmlReader.getText(node);
 
 		// read SubElements of Node
 		NodeList nodes = node.getChildNodes();

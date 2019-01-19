@@ -17,6 +17,7 @@ import java.util.TreeMap;
 public class ScriptTable extends JPanel {
     private boolean DEBUG = false;
 
+    private final JTable table;
 	private ScriptTableModel scriptTableModel;
     
     private static final String[] columnNames = { 
@@ -66,7 +67,24 @@ public class ScriptTable extends JPanel {
 
 //        final JTable table = new JTable(data, columnNames);
         scriptTableModel = new ScriptTableModel(scriptsMap);
-        final JTable table = new JTable(scriptTableModel);
+        table = new JTable(scriptTableModel) {
+
+	        //Implement table cell tool tips.           
+	        public String getToolTipText(MouseEvent e) {
+	            String tip = null;
+	            java.awt.Point p = e.getPoint();
+	            int rowIndex = rowAtPoint(p);
+	            int colIndex = columnAtPoint(p);
+	
+	            try {
+	                tip = getValueAt(rowIndex, colIndex).toString();
+	            } catch (RuntimeException e1) {
+	                //catch null pointer exception if mouse is over an empty line
+	            }
+	
+	            return tip;
+	        }
+        };
         
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
         table.setFillsViewportHeight(true);
