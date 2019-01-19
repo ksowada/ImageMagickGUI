@@ -4,6 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.TableModel;
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
@@ -13,6 +16,8 @@ import java.util.TreeMap;
 
 public class ScriptTable extends JPanel {
     private boolean DEBUG = false;
+
+	private ScriptTableModel scriptTableModel;
     
     private static final String[] columnNames = { 
         "name"             ,
@@ -35,16 +40,16 @@ public class ScriptTable extends JPanel {
 //                                "Vegetarian"};
 //        String[] columnNames = scriptsMap.
 
-        Object[][] data = new Object[scriptsMap.size()][columnNames.length];
+//        Object[][] data = new Object[scriptsMap.size()][columnNames.length];
         // go by Script
 //        for (TreeMap scriptMap : scriptsMap) {
 //	        for (String columnName : columnNames) {
 
-        for (int scriptIx = 0; scriptIx<scriptsMap.size(); scriptIx++) {
-	        for (int columnIx = 0; columnIx<columnNames.length; columnIx++) {
-	        	data[scriptIx][columnIx] = scriptsMap.get(scriptIx).get(columnNames[columnIx]);
-	        }
-        }
+//        for (int scriptIx = 0; scriptIx<scriptsMap.size(); scriptIx++) {
+//	        for (int columnIx = 0; columnIx<columnNames.length; columnIx++) {
+//	        	data[scriptIx][columnIx] = scriptsMap.get(scriptIx).get(columnNames[columnIx]);
+//	        }
+//        }
 
 //        Object[][] data = {
 //	    {"Kathy", "Smith",
@@ -59,9 +64,15 @@ public class ScriptTable extends JPanel {
 //	     "Pool", new Integer(10), new Boolean(false)}
 //        };
 
-        final JTable table = new JTable(data, columnNames);
+//        final JTable table = new JTable(data, columnNames);
+        scriptTableModel = new ScriptTableModel(scriptsMap);
+        final JTable table = new JTable(scriptTableModel);
+        
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
         table.setFillsViewportHeight(true);
+        
+        // allow multiple Scripts to be Selected
+        table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         if (DEBUG) {
             table.addMouseListener(new MouseAdapter() {
