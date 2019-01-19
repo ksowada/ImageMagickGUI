@@ -33,6 +33,11 @@ public class ScriptTableModel extends AbstractTableModel {
 	        }
         }
     }
+
+    
+    public String getColumnName(int col) {
+        return columnNames[col];
+    }
     
 	@Override
 	public int getColumnCount() {
@@ -45,7 +50,16 @@ public class ScriptTableModel extends AbstractTableModel {
 		// TODO Auto-generated method stub
 		return data.length;
 	}
-
+	/** define editable Cells */
+    public boolean isCellEditable(int row, int col) {
+        //Note that the data/cell address is constant,
+        //no matter where the cell appears onscreen.
+        if (col < 2) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 	@Override
 	public Object getValueAt(int arg0, int arg1) {
 		// TODO Auto-generated method stub

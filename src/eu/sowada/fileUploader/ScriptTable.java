@@ -73,6 +73,9 @@ public class ScriptTable extends JPanel {
         
         // allow multiple Scripts to be Selected
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        
+        // allow sorting for each column
+        table.setAutoCreateRowSorter(true);
 
         if (DEBUG) {
             table.addMouseListener(new MouseAdapter() {
