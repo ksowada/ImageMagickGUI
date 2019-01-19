@@ -2,6 +2,7 @@
 <ImageMagickScript>
     <Author>Karl Sowada</Author>
     <Date>13.01.2018</Date>
+    <Version>0.1.0</Version>
     <Script name="Resize">
     </Script>
     <Script name="Identify" outFile="no">
@@ -16,8 +17,8 @@
         <Example>magick 2019-01-15*.png -set delay 100 berlin2.gif</Example>
         <Command>magick</Command>
         <Setting>-set delay %i
-            <help>give delay between GIF Frames in multiples of 1/100s = 10ms</help>
-            <default>4</default>
+            <Help>give delay between GIF Frames in multiples of 1/100s = 10ms</Help>
+            <Default>4</Default>
         </Setting>
     </Script>
 </ImageMagickScript>
