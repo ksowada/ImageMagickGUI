@@ -18,8 +18,8 @@ refer to [README.md](README.md) for project info
         <Example>magick 2019-01-15*.png -set delay 100 berlin2.gif</Example>
         <Command>magick</Command>
         <Setting>-set delay %i
-            <help>give delay between GIF Frames in multiples of 1/100s = 10ms</help>
-            <default>4</default>
+            <Help>give delay between GIF Frames in multiples of 1/100s = 10ms</Help>
+            <Default>4</Default>
         </Setting>
     </Script>
 </ImageMagickScript>
@@ -102,6 +102,10 @@ Image Geometry
 ## Variables in XML-Definiton
 Inbetween some of above tags, you can include the following.
 
+### `<Help>` (optional)
+
+select some help text for the given variable use cleartext or in HTML-Style 
+
 ### `%i` Integer (optional)
 
 use `%i` for an undetermined variable Integer-Number Value, allows the User to adjust the Transformation
@@ -110,11 +114,7 @@ use `%i` for an undetermined variable Integer-Number Value, allows the User to a
 
 use `%s` for an undetermined variable Text-String Value, allows the User to adjust the Transformation
 
-### `<Help>` (optional)
-
-select some help text for the given variable use cleartext or in HTML-Style 
-
-`<Default>` (optional)
+### `<Default>` (optional)
 
 give some fixed default value
 
