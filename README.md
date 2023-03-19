@@ -1,12 +1,14 @@
 # Auto Enhance Picture(s) for web
-Image magick is used for purpose to enhance multiple images in a stack, so download image magick and use this tool
+
+Image magick is a Linux-based tool used for purpose to enhance multiple images in a stack, so download image magick and use this tool
 - resize
 - auto correct color
 - reduce noise
 
 ## installation
 - requires [Image Magick](https://imagemagick.org/)
-- install it (at linux make it executabla and add it to your PATH-environment variable) to execute it from any path
+- install it (at linux make it executable and add it to your PATH-environment variable) to execute it from any path
+- set a environment var `MAGICK_HOME` pointing to `magick` program
 - *TODO (accept parameter or env-var also)*
 
 ## usage

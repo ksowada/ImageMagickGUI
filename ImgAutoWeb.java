@@ -13,6 +13,17 @@ public class ImgAutoWeb {
     final static int defSize = 987;
     public static void main(String[] args) {
         System.out.println("img-auto");
+
+        // get environment var for magick command
+        String magickPath = System.getenv("MAGICK_HOME");
+        if (magickPath==null || magickPath.length()<2) {
+            System.out.println("ERROR: environment variable MAGICK_HOME is not set");
+            return;
+        }
+        // assure trailing slash
+        if (!magickPath.endsWith("/")) magickPath = magickPath + "/";
+        magickPath = magickPath + "magick"; // add command
+
         TreeMap<String, String> parameters = new TreeMap();
 
         // handle args seperately
@@ -47,40 +58,59 @@ public class ImgAutoWeb {
 
         // add command and parameters for system call
         final Vector<String> processParameters = new Vector<String>();
-        processParameters.add("magick"); // extern program name
+
+        // java at linux cannot detect global magick in PATH-env so use workaround with bash
+//        processParameters.add("/bin/bash");
+//        processParameters.add("-c");
+//        processParameters.add("magick"); // extern program name
+        processParameters.add(magickPath);
+        processParameters.add("--version");
 
         // set input file, as very first
-        if (!parameters.containsKey("i")) {
-            System.out.println("ERROR: input file is missing");
-            return;
-        }
-        processParameters.add(parameters.get("i"));
+//        if (!parameters.containsKey("i")) {
+//            System.out.println("ERROR: input file is missing");
+//            return;
+//        }
+//        processParameters.add("\""+parameters.get("i")+"\"");
 
         // set size
-        if (parameters.containsKey("s")) {
-            String paraSize = parameters.get("s");
-            if (paraSize.startsWith("w")) {
-                String paraSizeVal = paraSize.substring(1);
-                try {
-                    int size = Integer.parseInt(paraSizeVal);
-                    processParameters.add("-resize " + size + "x");
-                } catch (NumberFormatException e) {
-                    System.out.println("ERROR: size is not a valid int val=" + paraSizeVal);
-                }
-            }
-        } else if (parameters.containsKey("auto")) {
-            processParameters.add("-resize " + defSize + "x");
-        }
+//        if (parameters.containsKey("s")) {
+//            String paraSize = parameters.get("s");
+//            if (paraSize.startsWith("w")) {
+//                String paraSizeVal = paraSize.substring(1);
+//                try {
+//                    int size = Integer.parseInt(paraSizeVal);
+//                    processParameters.add("-resize " + size + "x");
+//                } catch (NumberFormatException e) {
+//                    System.out.println("ERROR: size is not a valid int val=" + paraSizeVal);
+//                }
+//            }
+//        } else if (parameters.containsKey("auto")) {
+//            processParameters.add("-resize " + defSize + "x");
+//        }
 
         // set quality or use auto
 
 
         // set output file, as very last
-        if (!parameters.containsKey("o")) {
-            System.out.println("ERROR: output file is missing");
-            return;
-        }
-        processParameters.add(parameters.get("o"));
+//        if (!parameters.containsKey("o")) {
+//            System.out.println("ERROR: output file is missing");
+//            return;
+//        }
+//        processParameters.add("\""+parameters.get("o")+"\"");
+
+        System.out.println("CALL:"+String.join(" ",processParameters.toArray(new String[0])));
+
+        // run the command
+
+//        Runtime runtime = Runtime.getRuntime();
+//        Process process;
+//        try {
+//            process = runtime.exec(processParameters.toArray(new String[0]));
+//        } catch (Exception e) {
+//            System.out.println("ERROR: process could not be started");
+//            throw new RuntimeException(e);
+//        }
 
         ProcessBuilder builder = new ProcessBuilder(processParameters);
         Process process;
