@@ -3,4 +3,4 @@
 export MAGICK_HOME="/home/karlito/Apps/magick-7.1.1.4"
 rm -r out
 mkdir out
-java ImgAutoWeb -i:sample/20230311_014840.jpg -o:out/20230311_014840.b.jpg -auto -size:w1597
+java ImgAutoWeb -i:"sample/20230311_014840.jpg" -o:"out/20230311_014840.b.jpg" -auto -size:w1597

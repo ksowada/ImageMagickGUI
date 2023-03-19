@@ -14,6 +14,11 @@ public class ImgAutoWeb {
     public static void main(String[] args) {
         System.out.println("img-auto");
 
+        // get working directory
+        String workPath = System.getProperty("user.dir");
+        System.out.println("working directory:"+workPath);
+        workPath = assureTrailingSlash(workPath);
+
         // get environment var for magick command
         String magickPath = System.getenv("MAGICK_HOME");
         if (magickPath==null || magickPath.length()<2) {
@@ -21,7 +26,8 @@ public class ImgAutoWeb {
             return;
         }
         // assure trailing slash
-        if (!magickPath.endsWith("/")) magickPath = magickPath + "/";
+        magickPath = assureTrailingSlash(magickPath);
+//        if (!magickPath.endsWith("/")) magickPath = magickPath + "/";
         magickPath = magickPath + "magick"; // add command
 
         TreeMap<String, String> parameters = new TreeMap();
@@ -40,6 +46,7 @@ public class ImgAutoWeb {
                 // a valid seeming argument consisting of a single seperator ':'
                 if (argParts.length == 2) {
                     parameters.put(argParts[0], argParts[1]);
+                    // TODO remove possible quotes
                 }
                 // a single argument without seperator ':', just give a key
                 if (argParts.length == 1) {
@@ -64,42 +71,46 @@ public class ImgAutoWeb {
 //        processParameters.add("-c");
 //        processParameters.add("magick"); // extern program name
         processParameters.add(magickPath);
-        processParameters.add("--version");
+//        processParameters.add("--version");
 
         // set input file, as very first
-//        if (!parameters.containsKey("i")) {
-//            System.out.println("ERROR: input file is missing");
-//            return;
-//        }
-//        processParameters.add("\""+parameters.get("i")+"\"");
+        if (!parameters.containsKey("i")) {
+            System.out.println("ERROR: input file is missing");
+            return;
+        }
+        processParameters.add(surroundWithQuotes(workPath+parameters.get("i")));
+
+        processParameters.add("-verbose");
+//        processParameters.add("-debug");
 
         // set size
-//        if (parameters.containsKey("s")) {
-//            String paraSize = parameters.get("s");
-//            if (paraSize.startsWith("w")) {
-//                String paraSizeVal = paraSize.substring(1);
-//                try {
-//                    int size = Integer.parseInt(paraSizeVal);
-//                    processParameters.add("-resize " + size + "x");
-//                } catch (NumberFormatException e) {
-//                    System.out.println("ERROR: size is not a valid int val=" + paraSizeVal);
-//                }
-//            }
-//        } else if (parameters.containsKey("auto")) {
-//            processParameters.add("-resize " + defSize + "x");
-//        }
+        if (parameters.containsKey("s")) {
+            String paraSize = parameters.get("s");
+            if (paraSize.startsWith("w")) {
+                String paraSizeVal = paraSize.substring(1);
+                try {
+                    int size = Integer.parseInt(paraSizeVal);
+                    processParameters.add("-resize " + size + "x");
+                } catch (NumberFormatException e) {
+                    System.out.println("ERROR: size is not a valid int val=" + paraSizeVal);
+                }
+            }
+        } else if (parameters.containsKey("auto")) {
+            processParameters.add("-resize " + defSize + "x");
+        }
 
         // set quality or use auto
 
 
         // set output file, as very last
-//        if (!parameters.containsKey("o")) {
-//            System.out.println("ERROR: output file is missing");
-//            return;
-//        }
-//        processParameters.add("\""+parameters.get("o")+"\"");
+        if (!parameters.containsKey("o")) {
+            System.out.println("ERROR: output file is missing");
+            return;
+        }
+        processParameters.add(surroundWithQuotes(workPath+parameters.get("o")));
 
-        System.out.println("CALL:"+String.join(" ",processParameters.toArray(new String[0])));
+        String callLine = String.join(" ",processParameters.toArray(new String[0]));
+        System.out.println("CALL:"+callLine);
 
         // run the command
 
@@ -112,14 +123,23 @@ public class ImgAutoWeb {
 //            throw new RuntimeException(e);
 //        }
 
-        ProcessBuilder builder = new ProcessBuilder(processParameters);
+        Runtime runtime = Runtime.getRuntime();
         Process process;
         try {
-            process = builder.start();
-        } catch (IOException e) {
+            process = runtime.exec(callLine);
+        } catch (Exception e) {
             System.out.println("ERROR: process could not be started");
             throw new RuntimeException(e);
         }
+
+//        ProcessBuilder builder = new ProcessBuilder(processParameters);
+//        Process process;
+//        try {
+//            process = builder.start();
+//        } catch (IOException e) {
+//            System.out.println("ERROR: process could not be started");
+//            throw new RuntimeException(e);
+//        }
 
         StringBuilder out = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
@@ -132,6 +152,16 @@ public class ImgAutoWeb {
         } catch (Exception e) {
             System.out.println("ERROR: Exception at program execution");
         }
+    }
+    public static String assureTrailingSlash(String in) {
+        String str = in;
+        if (!str.endsWith("/")) str = str + "/";
+        return str;
+    }
+
+    public static String surroundWithQuotes(String in) {
+        String str = "\""+in+"\"";
+        return str;
     }
 
 }

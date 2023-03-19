@@ -5,6 +5,8 @@ Image magick is a Linux-based tool used for purpose to enhance multiple images i
 - auto correct color
 - reduce noise
 
+TODO: ImageMagick may not be called well from java, searching alternatives like XnConvert
+
 ## installation
 - requires [Image Magick](https://imagemagick.org/)
 - install it (at linux make it executable and add it to your PATH-environment variable) to execute it from any path
