@@ -18,8 +18,9 @@ TODO install --help
 - **-i:{file}** Input File Path
 - **-o:{file}** Output File Path
 - **-auto:{auto-parameter}** some auto options
-  - **all** some major automatic photo enhancements
-- **size:[w/h]{pixels}** set a new size, controlled by
+  some major automatic photo enhancements, all following vars may be overwritten
+    - quality=80
+    - size: width=987 
+- **-size:w{pixels}** set a new size, controlled by
   - **w** width
-  - **h** height
-  
+- **-format:[jpg/webp]** defaults to jpg
