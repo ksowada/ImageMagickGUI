@@ -76,12 +76,15 @@ just an handy example of an working test
 
 select some help text for the given variable use cleartext or in HTML-Style 
 
-`<Default>` (optional)
+### `<Default>` (optional)
 
 give some fixed default value
 
 ### `<Command>`
-the command line executable
+the command line executable, must be on Path otherwise use <CommandPath/> as sibling to <Command>
+
+### `<CommandPath>` (optional)
+path to command line executable, may use or contain trailing slash
 
 ### `<Setting>` (optional)
 Image Setting

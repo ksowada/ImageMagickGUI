@@ -7,6 +7,7 @@
     </Script>
     <Script name="Identify" outFile="no">
         <Command>magick</Command>
+        <CommandPath>/home/karlito/Apps/magick-7.1.1.4</CommandPath>
         <Operator>identify</Operator>
     </Script>
     <Script name="AutoLevel">

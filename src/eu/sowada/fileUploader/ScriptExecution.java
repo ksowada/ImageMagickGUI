@@ -18,15 +18,19 @@ public class ScriptExecution {
 	public int execute() throws Exception {
 		
 		ProcessBuilder builder = null;
+                String commandAndPath = "";
+                if (script.commandPath!=null) commandAndPath += script.commandPath;
+                commandAndPath += script.command;
 		if (script.outFile.toLowerCase().equals("no")) {
-			builder = new ProcessBuilder(script.command, fileSrc.toString(), script.operator);
-			System.out.println("execute("+script.command+" "+script.operator+" "+fileSrc.toString());
+                        
+			builder = new ProcessBuilder(commandAndPath, fileSrc.toString(), script.operator);
+			System.out.println("execute("+commandAndPath+" "+script.operator+" "+fileSrc.toString());
 		} else {
 			String fileSrcPath = fileSrc.getAbsolutePath(); // TODO comprimize
 			String fileDestPath = fileSrcPath + File.pathSeparator + "dest" + File.pathSeparator + fileSrc.getName();
 
-			builder = new ProcessBuilder(script.command, fileSrc.toString(), script.operator, fileDestPath);
-			System.out.println("execute("+script.command+" "+script.operator+" "+fileSrc.toString()+" "+fileDestPath);
+			builder = new ProcessBuilder(commandAndPath, fileSrc.toString(), script.operator, fileDestPath);
+			System.out.println("execute("+commandAndPath+" "+script.operator+" "+fileSrc.toString()+" "+fileDestPath);
 		}
 		if (builder == null) return -1;
 		

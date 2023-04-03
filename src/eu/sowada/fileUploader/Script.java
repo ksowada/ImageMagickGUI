@@ -3,6 +3,7 @@
  */
 package eu.sowada.fileUploader;
 
+import static de.ardoid.vars.StringHelper.assureTrailingSlash;
 import java.util.TreeMap;
 
 import org.w3c.dom.NamedNodeMap;
@@ -12,7 +13,7 @@ import org.w3c.dom.NodeList;
 /**
  * transform XML.Node to a Script-Object holding the command for a Script
  * @author Karl Sowada
- * @version 0.1
+ * @version 0.2
  * @since 180113
  */
 public class Script {
@@ -21,6 +22,7 @@ public class Script {
 	private static final String ATTR_OUT_FILE = "outFile";
 	private static final String ELEM_EXAMPLE = "Example";
 	private static final String ELEM_COMMAND = "Command";
+	private static final String ELEM_COMMAND_PATH = "CommandPath";
 	private static final String ELEM_OPERATOR = "Operator";
 	private static final String ELEM_SETTING = "Setting";
 	private static final String ELEM_CHANNEL_OPERATOR = "ChannelOperator";
@@ -36,6 +38,7 @@ public class Script {
 	public String channelOperator;
 	public String sequenceOperator;
 	public String geometry;
+        public String commandPath;
 	
 	public Script(Node node, XmlReader xmlReader) {
 		
@@ -59,6 +62,10 @@ public class Script {
 				
 			case ELEM_COMMAND:
 				this.command = xmlReader.getText(subNode);//subNode.getTextContent();
+				break;
+                                
+			case ELEM_COMMAND_PATH:
+				this.commandPath = assureTrailingSlash(xmlReader.getText(subNode));//subNode.getTextContent();
 				break;
 
 			case ELEM_SETTING:
@@ -97,6 +104,7 @@ public class Script {
 		map.put("outFile"          , outFile);
 		map.put("example"          , example);
 		map.put("command"          , command);
+		map.put("commandPath"      , commandPath);
 		map.put("operator"         , operator);
 		map.put("setting"          , setting);
 		map.put("channelOperator"  , channelOperator);
