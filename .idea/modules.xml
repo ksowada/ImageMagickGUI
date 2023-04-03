@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ImageMagickGUI.iml" filepath="$PROJECT_DIR$/ImageMagickGUI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/img-auto-web.iml" filepath="$PROJECT_DIR$/.idea/img-auto-web.iml" />
     </modules>
   </component>
 </project>
