@@ -1,0 +1,66 @@
+<config>
+    <sites>
+        <site name="webtool">
+            <dir>../webtool.de</dir>
+            <content>content</content>
+            <destdita>dest-dita</destdita>
+            <dest>dest</dest>
+            <map>webtool.de</map>
+            <url>http://webtool.de</url>
+            <info>
+                <brand>webtool.de</brand>
+                <url>http://webtool.de</url>
+                <keywords>DITA,oxygen-webhelp,xslt-site-generation</keywords>
+                <twitter_name>SK8DE1</twitter_name>
+                <footer>
+                    <google/>
+                    <facebook/>
+                    <linkedin/>
+                    <twitter name="SK8DE1"/>
+                </footer>
+            </info>
+        </site>
+        <site name="spare">
+            <dir>../spare-benzin.de</dir>
+            <content>content</content>
+            <destdita>dest-dita</destdita>
+            <dest>dest</dest>
+            <map>spare-benzin.de</map>
+            <url>http://spare-benzin.de</url>
+            <info>
+                <brand>spare-benzin.de</brand>
+                <url>http://spare-benzin.de</url>
+                <keywords>Auto</keywords>
+                <twitter_name>SK8DE1</twitter_name>
+                <footer>
+                    <google/>
+                    <facebook/>
+                    <linkedin/>
+                    <twitter name="SK8DE1"/>
+                </footer>
+                <googleAnalyticsId>UA-133721301-1</googleAnalyticsId>
+            </info>
+        </site>
+        <site name="sk-8">
+            <dir>../sk-8.de</dir>
+            <content>content</content>
+            <destdita>dest-dita</destdita>
+            <dest>dest</dest>
+            <map>sk-8.de</map>
+            <url>http://sk-8.de</url>
+            <info>
+                <brand>sk-8.de</brand>
+                <url>http://sk-8.de</url>
+                <keywords>Inliner,Inline-Skates,Sport</keywords>
+                <twitter_name>SK8DE1</twitter_name>
+                <footer>
+                    <google/>
+                    <facebook/>
+                    <linkedin/>
+                    <twitter name="SK8DE1"/>
+                </footer>
+                <googleAnalyticsId>UA-343852-2</googleAnalyticsId>
+            </info>
+        </site>
+    </sites>
+</config>

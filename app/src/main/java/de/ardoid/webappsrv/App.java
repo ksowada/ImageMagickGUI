@@ -1,5 +1,6 @@
-package de.ardoid;
+package de.ardoid.webappsrv;
 
+import de.ardoid.DitaTransform;
 import de.ardoid.files.ParseXPath;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -11,7 +12,7 @@ import java.nio.file.Path;
 import static de.ardoid.vars.StringHelper.assureTrailingSlash;
 import static spark.Spark.*;
 
-public class Main {
+public class App {
 
     final public static String CFG_FILE = "res/config-gui.xml";
     public static String pathWork;
@@ -27,12 +28,13 @@ public class Main {
         // get working directory
         pathWork = System.getProperty("user.dir");
         pathWork = assureTrailingSlash(pathWork);
+        System.out.println("pathWork:"+pathWork);
 
         // get environment var for magick command
         pathDITA = System.getenv("DITA_HOME");
 
         // read config.xml to DOM document
-        Path configXMLPath = FileSystems.getDefault().getPath(Main.pathWork,"../","config.xml").normalize();
+        Path configXMLPath = FileSystems.getDefault().getPath(App.pathWork,"../","config.xml").normalize();
         configXML = new ParseXPath(configXMLPath.toString(), false);
         if (configXML.doc==null) throw new Exception("ERROR: config dont found");
 

@@ -31,7 +31,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'de.ardoid.gradleproject1.App'
+    mainClass = 'de.ardoid.webappsrv.App'
 }
 
 tasks.named('test') {
