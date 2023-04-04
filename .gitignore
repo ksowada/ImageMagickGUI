@@ -3,3 +3,6 @@ sample/
 out/
 **/*.class
 /build
+.archive/
+/bin/
+.gradle/

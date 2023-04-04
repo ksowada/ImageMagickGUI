@@ -1,2 +1,0 @@
-# de.ardoid.files
-## requirements

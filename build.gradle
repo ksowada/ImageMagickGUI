@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+}
+
+group 'de.ardoid'
+version '0.0.3'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+  //  implementation 'net.sourceforge.saxon:saxon:9.1.0.8'
+//    implementation group: 'org.htmlparser', name: 'htmlparser', version: '2.1'
+    implementation files('lib/HtmlCleaner/htmlcleaner-2.24.jar')
+    implementation files('lib/saxon/saxon-he-10.1.jar')
+    implementation 'com.sparkjava:spark-core:2.9.4'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
