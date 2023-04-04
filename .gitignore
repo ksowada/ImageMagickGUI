@@ -8,3 +8,5 @@ build
 
 .archive/
 
+app/htdocs/
+

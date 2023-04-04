@@ -14,7 +14,7 @@ import static spark.Spark.*;
 
 public class App {
 
-    final public static String CFG_FILE = "res/config-gui.xml";
+//    final public static String CFG_FILE = "res/config-gui.xml";
     public static String pathWork;
     public static String pathDITA;
     public static ParseXPath configXML;
@@ -39,8 +39,8 @@ public class App {
         if (configXML.doc==null) throw new Exception("ERROR: config dont found");
 
         // read list of prj in config file
-        ParseXPath cfgDoc = new ParseXPath(CFG_FILE, false);
-        NodeList siteNamesNl = cfgDoc.getByXPath("//site/@name");
+//        ParseXPath cfgDoc = new ParseXPath(CFG_FILE, false);
+        NodeList siteNamesNl = configXML.getByXPath("//site/@name");
         for (int siteNamesIx = 0; siteNamesIx < siteNamesNl.getLength(); siteNamesIx++) {
             Node siteNameNode = siteNamesNl.item(siteNamesIx);
             System.out.println(siteNameNode.getTextContent());
@@ -49,6 +49,8 @@ public class App {
         // set external dir from which the web is served from
         String projectDir = System.getProperty("user.dir");
         String staticDir = "/htdocs/";
+        // TODO if port is in use, choose other one
+        port(8080); // standard Spark Port 4567 maybe in use, as in netbeans
         staticFiles.externalLocation(projectDir + staticDir); // choose external for fast debug, overwrite without rebuild
         Spark.init();
 
