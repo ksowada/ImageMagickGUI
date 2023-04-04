@@ -54,4 +54,4 @@ Otherwise you can edit the script/script.xml File manually. Don't change given T
 
 ## Script-File Format
 
-refer to [script.xml.md](script.xml.md)
+refer to [script.xml.md](script/script.xml.md)
