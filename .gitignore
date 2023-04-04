@@ -1,8 +1,10 @@
-samples/
-sample/
-out/
-**/*.class
-/build
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+
+# Project-specific
+
 .archive/
-/bin/
-.gradle/
+
