@@ -34,9 +34,9 @@ public class App {
         pathDITA = System.getenv("DITA_HOME");
 
         // read config.xml to DOM document
-        Path configXMLPath = FileSystems.getDefault().getPath(App.pathWork,"../","config.xml").normalize();
+        Path configXMLPath = FileSystems.getDefault().getPath(App.pathWork,"../../","config.xml").normalize();
         configXML = new ParseXPath(configXMLPath.toString(), false);
-        if (configXML.doc==null) throw new Exception("ERROR: config dont found");
+        if (configXML.doc==null) throw new Exception("ERROR: config.xml dont found at:"+configXMLPath.toString());
 
         // read list of prj in config file
 //        ParseXPath cfgDoc = new ParseXPath(CFG_FILE, false);
