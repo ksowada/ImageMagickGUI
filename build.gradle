@@ -10,8 +10,6 @@ repositories {
 }
 
 dependencies {
-  //  implementation 'net.sourceforge.saxon:saxon:9.1.0.8'
-//    implementation group: 'org.htmlparser', name: 'htmlparser', version: '2.1'
     implementation files('lib/HtmlCleaner/htmlcleaner-2.24.jar')
     implementation files('lib/saxon/saxon-he-10.1.jar')
     implementation 'com.sparkjava:spark-core:2.9.4'
